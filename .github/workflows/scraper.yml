@@ -1,0 +1,39 @@
+name: Scraper Automático
+
+on:
+  schedule:
+    # Corre cada 6 horas
+    - cron: '0 */6 * * *'
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          pip install gspread google-auth pandas numpy requests fake-useragent scipy geopy
+          pip install playwright playwright-stealth
+          playwright install chromium
+          
+      - name: Create credentials file
+        run: |
+          echo '${{ secrets.GOOGLE_CREDENTIALS }}' > config/credentials.json
+          
+      - name: Run scraper
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+        run: |
+          python main.py --source zonaprop --limit 100
+          
+      - name: Cleanup
+        run: rm -f config/credentials.json
