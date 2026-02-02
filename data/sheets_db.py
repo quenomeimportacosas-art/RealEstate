@@ -120,6 +120,16 @@ class GoogleSheetsDB:
         existing = worksheet.get_all_records()
         existing_ids = {r['id']: i+2 for i, r in enumerate(existing)}  # +2 por header y 1-index
         
+        # Función para convertir número de columna a letra Excel (1=A, 27=AA, etc)
+        def col_to_letter(col):
+            result = ""
+            while col > 0:
+                col, remainder = divmod(col - 1, 26)
+                result = chr(65 + remainder) + result
+            return result
+        
+        last_col = col_to_letter(len(headers))  # Ej: 29 columnas = "AC"
+        
         updates = []
         new_rows = []
         
@@ -130,7 +140,7 @@ class GoogleSheetsDB:
                 # Actualizar fila existente
                 row_num = existing_ids[prop['id']]
                 updates.append({
-                    'range': f'A{row_num}:{chr(65 + len(headers) - 1)}{row_num}',
+                    'range': f'A{row_num}:{last_col}{row_num}',
                     'values': [row_data]
                 })
             else:
