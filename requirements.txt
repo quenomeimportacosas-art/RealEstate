@@ -1,25 +1,19 @@
-# Core
-playwright==1.41.0
-playwright-stealth==1.0.6
-gspread==6.0.0
-google-auth==2.27.0
-pandas==2.2.0
-numpy==1.26.3
+# Dashboard dependencies (Streamlit Cloud)
+streamlit>=1.30.0
+pandas>=2.0.0
+gspread>=6.0.0
+google-auth>=2.0.0
+plotly>=5.0.0
 
-# Analysis
-scipy==1.12.0
-geopy==2.4.1
+# Scraper dependencies (solo para ejecución local/GitHub Actions)
+# Comentados para Streamlit Cloud - se instalan manualmente para scraping
+# playwright>=1.41.0
+# playwright-stealth>=1.0.6
+# fake-useragent>=1.4.0
+# scipy>=1.12.0
+# geopy>=2.4.0
+# python-telegram-bot>=20.0
 
-# Dashboard
-streamlit==1.31.0
-folium==0.15.1
-streamlit-folium==0.17.0
-plotly==5.18.0
-
-# Alerts
-python-telegram-bot==20.7
-
-# Utils
-python-dotenv==1.0.0
-requests==2.31.0
-fake-useragent==1.4.0
+# Common
+requests>=2.31.0
+numpy>=1.26.0
