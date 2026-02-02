@@ -21,7 +21,7 @@ jobs:
           
       - name: Install Python dependencies
         run: |
-          pip install gspread google-auth pandas numpy requests fake-useragent scipy geopy
+          pip install gspread google-auth pandas numpy requests fake-useragent scipy geopy python-telegram-bot
           pip install playwright playwright-stealth
           
       - name: Install Playwright with dependencies
