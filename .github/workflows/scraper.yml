@@ -19,21 +19,20 @@ jobs:
         with:
           python-version: '3.11'
           
-      - name: Install dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+          
+      - name: Install Python dependencies
         run: |
           pip install gspread google-auth pandas numpy requests fake-useragent scipy geopy
           pip install playwright playwright-stealth
           playwright install chromium
           
-      - name: Create credentials file
-        run: |
-          echo '${{ secrets.GOOGLE_CREDENTIALS }}' > config/credentials.json
-          
       - name: Run scraper
         env:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: |
-          python main.py --source zonaprop --limit 100
-          
-      - name: Cleanup
-        run: rm -f config/credentials.json
+          python main.py --source zonaprop --limit 50
