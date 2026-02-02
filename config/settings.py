@@ -28,7 +28,7 @@ HEADLESS = True  # False para ver el navegador
 # Análisis
 MICROZONE_RADIUS_METERS = 400
 ZSCORE_THRESHOLD = -1.5  # Propiedades con Z < -1.5 son outliers
-OPPORTUNITY_SCORE_THRESHOLD = 75  # Score mínimo para alertar
+OPPORTUNITY_SCORE_THRESHOLD = 30  # Score mínimo para alertar (30+ = oportunidad)
 
 # Geocoding
 DEFAULT_CITY = "Palermo, Buenos Aires, Argentina"
